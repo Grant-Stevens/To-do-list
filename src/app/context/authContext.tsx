@@ -15,6 +15,7 @@ interface IAuthContext {
   session: Session | null;
   signIn: (provider: string) => void;
   signOut: () => void;
+  databaseUser: any;
 }
 
 const authContext = createContext<IAuthContext | undefined>(undefined);
@@ -30,6 +31,7 @@ export const useAuthContext = () => {
 export const AuthProvider = ({ ...props }) => {
   const { children } = props;
   const [session, setSession] = useState<Session | null>(null);
+  const [databaseUser, setDatabaseUser] = useState();
   const [isLoading, setLoading] = useState<boolean>(true);
 
   const signIn = useCallback(async (provider: string) => {
@@ -59,9 +61,45 @@ export const AuthProvider = ({ ...props }) => {
     getSession();
   }, []);
 
-  const value = { isLoading, session, signIn, signOut };
+  useEffect(() => {
+    async function getDatabaseUser() {
+      const res = await fetch(`/api/users/${session?.user?.email}`, {
+        method: "GET",
+      });
+      const data = await res.json();
+      // console.log("DEBUG:", data);
+      setDatabaseUser(data.user);
+    }
 
-  console.log("session:", session);
+    if (!session?.user) return;
+    getDatabaseUser();
+  }, [session]);
+
+  useEffect(() => {
+    async function createUser() {
+      const user = await fetch(`/api/users`, {
+        method: "POST",
+        body: JSON.stringify({
+          user: {
+            name: session?.user?.name,
+            email: session?.user?.email,
+          },
+        }),
+      });
+      const data = await user.json();
+      console.log("DEBUG:", data);
+      setDatabaseUser(data.user);
+    }
+
+    // console.log("DEBUG:", databaseUser, session?.user);
+    if (databaseUser) return;
+    if (!session?.user) return;
+    createUser();
+  }, [databaseUser]);
+
+  const value = { isLoading, session, signIn, signOut, databaseUser };
+
+  console.log("session:", session, databaseUser);
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
 };

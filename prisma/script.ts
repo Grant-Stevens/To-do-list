@@ -1,33 +1,47 @@
-import { PrismaClient } from '@prisma/client'
+"user server";
 
-const prisma = new PrismaClient()
+import { PrismaClient } from "@prisma/client";
 
-async function main() {
-  await getUsers();
+const prisma = new PrismaClient();
+
+export async function getUsers() {
+  try {
+    const users = await prisma.user.findMany();
+    await prisma.$disconnect();
+    console.log(users);
+    return users;
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    console.error(error);
+    await prisma.$disconnect();
+    process.exit(1);
+  }
 }
 
-async function getUsers() {
-  const users = await prisma.user.findMany()
-  console.log(users)
+export async function getTasks() {
+  try {
+    const tasks = await prisma.task.findMany();
+    await prisma.$disconnect();
+    console.log(tasks);
+    return tasks;
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (error) {
+    console.error(error);
+    await prisma.$disconnect();
+    process.exit(1);
+  }
 }
 
 async function addUser() {
   const user = await prisma.user.create({
     data: {
-      name: 'Alice',
-      email: 'alice@prisma.io',
+      name: "Alice",
+      email: "alice@prisma.io",
     },
-  })
-  console.log(user)
-
+  });
+  console.log(user);
 }
 
-main()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+getUsers();

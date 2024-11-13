@@ -9,8 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "open-db": "npx prisma studio",
-    "run-db": "npx tsx ./prisma/script.ts"
+    "db-exec": "npx tsx ./prisma/script.ts",
+    "db-migrate": "npx prisma migrate dev --name init",
+    "db-open": "npx prisma studio"
   },
   "keywords": [],
   "author": "",
