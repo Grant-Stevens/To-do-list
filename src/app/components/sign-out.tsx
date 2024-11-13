@@ -1,20 +1,13 @@
-import { signOut } from "@/auth";
+import { useAuthContext } from "../context/authContext";
+import Button from "./button";
 
 const SignOut = () => {
-  async function handleSubmit(formData: FormData) {
-    "use server";
-    // event.preventDefault();
-    console.log("DEBUG:", formData.values);
-
-    await signOut();
-  }
+  const { signOut } = useAuthContext();
 
   return (
-    <form action={handleSubmit}>
-      <button type="submit" value={"github"}>
-        Signout
-      </button>
-    </form>
+    <Button type="submit" onClick={signOut}>
+      Signout
+    </Button>
   );
 };
 

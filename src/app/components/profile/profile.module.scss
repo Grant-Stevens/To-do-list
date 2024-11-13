@@ -1,0 +1,15 @@
+@import "/src/app/variables.scss";
+
+.container {
+  display: flex;
+  gap: 8px;
+
+  & > span {
+    background-color: $color-gray-800;
+    color: white;
+    border-radius: 16px;
+    text-align: center;
+    align-self: center;
+    padding: 8px 16px;
+  }
+}

@@ -1,0 +1,40 @@
+@import "/src/app/variables.scss";
+
+$primary-color: rgba(5, 5, 5, 0.95);
+$secondary-color: transparent;
+$tertiary-color: transparent;
+
+.button {
+  border: 2px solid;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.8;
+  padding: 16px 24px;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.primary {
+  background-color: $primary-color;
+  border-color: $color-gray-900;
+  color: $color-gray-100;
+
+  &:hover {
+    background-color: lighten($primary-color, 20%);
+  }
+}
+
+.secondary {
+  background-color: $secondary-color;
+  border-color: $color-gray-100;
+  color: inherit;
+}
+
+.tertiary {
+  background-color: $tertiary-color;
+  border-color: transparent;
+  color: inherit;
+}
