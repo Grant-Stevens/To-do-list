@@ -1,7 +1,7 @@
 "use client";
 import Button from "../button";
-import s from "./sign-in.module.scss";
 import { useAuthContext } from "../../context/authContext";
+import s from "./sign-in.module.scss";
 
 const SignIn = () => {
   const { signIn } = useAuthContext();

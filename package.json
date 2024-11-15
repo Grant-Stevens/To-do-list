@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "db-exec": "npx tsx ./prisma/script.ts",
     "db-migrate": "npx prisma migrate dev --name init",
-    "db-open": "npx prisma studio"
+    "db-open": "npx prisma studio",
+    "db-reset": "npx prisma migrate reset"
   },
   "keywords": [],
   "author": "",

@@ -1,4 +1,4 @@
-@import "/src/app/variables.scss";
+@use "/src/app/variables.scss" as *;
 
 $primary-color: rgba(5, 5, 5, 0.95);
 $secondary-color: transparent;
@@ -23,7 +23,7 @@ $tertiary-color: transparent;
   color: $color-gray-100;
 
   &:hover {
-    background-color: lighten($primary-color, 20%);
+    background-color: $color-gray-700;
   }
 }
 

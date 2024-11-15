@@ -2,16 +2,30 @@
 
 import Button from "./components/button";
 import Canvas from "./components/canvas";
+import Task from "./components/task";
 import { useAuthContext } from "./context/authContext";
+import { useTaskContext } from "./context/taskContext";
+import { useUserContext } from "./context/userContext";
 import s from "./page.module.scss";
 
 export default function Home() {
-  const { isLoading, databaseUser } = useAuthContext();
+  const { isLoading: isAuthLoading, session } = useAuthContext();
+  const { isLoading: isUserLoading, user } = useUserContext();
+  const {
+    isLoading: isTasksLoading,
+    tasks,
+    addTask,
+    deleteTask,
+  } = useTaskContext();
 
-  function handleAddTask() {}
+  function handleAddTask() {
+    addTask();
+  }
 
-  if (isLoading) return <span>Loading...</span>;
-  if (!databaseUser) return <span>Please sign in</span>;
+  console.log("PAGE DEBUG:", user, tasks);
+
+  if (isAuthLoading || isUserLoading) return <span>Loading...</span>;
+  if (!session?.user || !user) return <span>Please sign in</span>;
   return (
     <div className={s.page}>
       <div className={s.sidebar}>
@@ -19,9 +33,13 @@ export default function Home() {
       </div>
       <main className={s.main}>
         <Canvas>
-          {databaseUser.tasks?.map((task) => {
-            return <div key={task.id}>{task.title}</div>;
-          })}
+          {isTasksLoading ? (
+            <span>Loading...</span>
+          ) : (
+            tasks?.map((task) => {
+              return <Task key={task.id} task={task} onDelete={deleteTask} />;
+            })
+          )}
         </Canvas>
       </main>
     </div>

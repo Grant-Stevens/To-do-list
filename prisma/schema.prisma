@@ -12,17 +12,18 @@ datasource db {
 
 model Task {
   id       Int      @id @default(autoincrement())
-  owner    User     @relation(fields: [ownerId], references: [id])
   date     DateTime @default(now())
   title    String
   content  String
   complete Boolean  @default(false)
-  ownerId  Int
+  user     User?    @relation(fields: [userId], references: [id])
+  userId   Int?
 }
 
 model User {
   id    Int    @id @default(autoincrement())
   email String @unique
   name  String
+  image String @default("")
   tasks Task[]
 }

@@ -1,4 +1,4 @@
-@import "/src/app/variables.scss";
+@use "/src/app/variables.scss" as *;
 
 .task {
   height: 250px;
