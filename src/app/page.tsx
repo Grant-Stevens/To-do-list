@@ -1,46 +1,34 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Button from "./components/button";
-import Canvas from "./components/canvas";
-import Task from "./components/task";
-import { useAuthContext } from "./context/authContext";
-import { useTaskContext } from "./context/taskContext";
-import { useUserContext } from "./context/userContext";
+import TaskContainer from "./components/task-container";
+import { useAuthContext } from "./context/auth-context";
+import { useTaskContext } from "./context/task-context";
+import { useUserContext } from "./context/user-context";
 import s from "./page.module.scss";
 
 export default function Home() {
+  const [isMounted, setMounted] = useState(false);
   const { isLoading: isAuthLoading, session } = useAuthContext();
   const { isLoading: isUserLoading, user } = useUserContext();
-  const {
-    isLoading: isTasksLoading,
-    tasks,
-    addTask,
-    deleteTask,
-  } = useTaskContext();
+  const { addTask } = useTaskContext();
 
-  function handleAddTask() {
-    addTask();
-  }
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  console.log("PAGE DEBUG:", user, tasks);
-
+  if (!isMounted) return null;
   if (isAuthLoading || isUserLoading) return <span>Loading...</span>;
   if (!session?.user || !user) return <span>Please sign in</span>;
+  // console.log("PAGE DEBUG:", user, tasks);
   return (
     <div className={s.page}>
       <div className={s.sidebar}>
-        <Button onClick={handleAddTask}>Add task +</Button>
+        <Button onClick={() => addTask()}>Add task +</Button>
       </div>
       <main className={s.main}>
-        <Canvas>
-          {isTasksLoading ? (
-            <span>Loading...</span>
-          ) : (
-            tasks?.map((task) => {
-              return <Task key={task.id} task={task} onDelete={deleteTask} />;
-            })
-          )}
-        </Canvas>
+        <TaskContainer />
       </main>
     </div>
   );

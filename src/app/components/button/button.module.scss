@@ -5,6 +5,10 @@ $secondary-color: transparent;
 $tertiary-color: transparent;
 
 .button {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
   border: 2px solid;
   border-radius: 4px;
   cursor: pointer;
@@ -35,6 +39,9 @@ $tertiary-color: transparent;
 
 .tertiary {
   background-color: $tertiary-color;
-  border-color: transparent;
+  padding: 0;
+  height: fit-content;
+  width: fit-content;
+  border: none;
   color: inherit;
 }

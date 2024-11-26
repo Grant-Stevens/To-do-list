@@ -1,4 +1,4 @@
-import { useAuthContext } from "../context/authContext";
+import { useAuthContext } from "../context/auth-context";
 import Button from "./button";
 
 const SignOut = () => {

@@ -7,11 +7,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useAuthContext } from "./authContext";
-import { ITask } from "./taskContext";
+import { useAuthContext } from "./auth-context";
+import { ITask } from "./task-context";
+import { User } from "next-auth";
 
 export interface IUser {
-  id?: string;
+  id: string;
   name?: string | null;
   email?: string | null;
   image?: string | null;
@@ -43,7 +44,7 @@ export const UserProvider = ({ ...props }) => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const getUserFromDB = useCallback(
-    async (u: IUser) => {
+    async (u: IUser | User) => {
       setLoading(true);
       const res = await fetch(`/api/users/${u.email}`, {
         method: "GET",
@@ -63,7 +64,7 @@ export const UserProvider = ({ ...props }) => {
     [session]
   );
 
-  const addUser = useCallback(async (u: IUser | undefined) => {
+  const addUser = useCallback(async (u: IUser | User | undefined) => {
     setLoading(true);
     const res = await fetch(`/api/users`, {
       method: "POST",

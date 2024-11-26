@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import SignIn from "../sign-in";
 import SignOut from "../sign-out";
 import Button from "../button";
-import { useAuthContext } from "../../context/authContext";
+import { useAuthContext } from "../../context/auth-context";
 import s from "./profile.module.scss";
 
 const Profile = () => {
@@ -23,7 +23,7 @@ const Profile = () => {
     <>
       {session?.user ? (
         <div className={s.container}>
-          <span>{session?.user?.email}</span>
+          <span>{session?.user?.name}</span>
           <SignOut />
         </div>
       ) : (
