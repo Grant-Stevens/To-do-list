@@ -21,7 +21,6 @@ export async function authSignOut() {
 }
 
 export async function updateTask(task: ITask) {
-  console.log("UPDATE TASK:", task);
   try {
     const res = await fetch(`${BASE_URL}/api/tasks/${task.id}`, {
       method: "PATCH",
@@ -40,7 +39,6 @@ export async function updateTask(task: ITask) {
 }
 
 export async function deleteTask(id: number) {
-  console.log("DELETE TASK:", id);
   try {
     const res = await fetch(`${BASE_URL}/api/tasks/${id}`, {
       method: "DELETE",
@@ -56,7 +54,6 @@ export async function deleteTask(id: number) {
 }
 
 export async function addTask(t?: ITask, u?: IUser) {
-  console.log("ADD TASK:", t, u);
   if (!t && !u) return;
   if (!t && u) {
     t = {

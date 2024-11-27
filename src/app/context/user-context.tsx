@@ -109,8 +109,6 @@ export const UserProvider = ({ ...props }) => {
 
   const value = { isLoading, user, addUser, updateUser, deleteUser };
 
-  // console.log("user:", user);
-
   return <userContext.Provider value={value}>{children}</userContext.Provider>;
 };
 

@@ -5,7 +5,7 @@ const SignOut = () => {
   const { signOut } = useAuthContext();
 
   return (
-    <Button type="submit" onClick={signOut}>
+    <Button mode={"secondary"} onClick={signOut}>
       Signout
     </Button>
   );

@@ -14,7 +14,11 @@ const Button = ({
   ...props
 }: IButtonProps) => {
   return (
-    <button type={type} className={[s.button, s[mode]].join(" ")} {...props}>
+    <button
+      {...props}
+      type={type}
+      className={[s.button, s[mode], props.className].join(" ")}
+    >
       {props.children}
     </button>
   );

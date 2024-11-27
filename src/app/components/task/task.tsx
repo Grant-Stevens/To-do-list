@@ -6,9 +6,10 @@ import SaveIcon from "@mui/icons-material/Save";
 import CheckBoxRoundedIcon from "@mui/icons-material/CheckBoxRounded";
 import CheckBoxOutlineBlankRoundedIcon from "@mui/icons-material/CheckBoxOutlineBlankRounded";
 import { useActionState, useEffect, useState } from "react";
-import s from "./task.module.scss";
 import { z } from "zod";
 import { updateTask } from "../../actions";
+
+import s from "./task.module.scss";
 
 const schema = z.object({
   id: z.number(),
@@ -19,7 +20,6 @@ const schema = z.object({
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const formCallback = (prevState: any, formData: any) => {
-  console.log("formAction:", prevState, formData);
   const validatedFields = schema.safeParse({
     id: Number.parseInt(formData.get("id")),
     title: formData.get("title"),
@@ -41,7 +41,6 @@ const formCallback = (prevState: any, formData: any) => {
     });
   }
 
-  console.log("SUBMIT?", validatedFields);
   return {
     task: validatedFields.data,
     errors: {},
@@ -91,71 +90,75 @@ const Task = ({
     setMounted(true);
   }, []);
 
-  // console.log("State:", state);
-
   if (!isMounted) return;
 
   return (
-    <form className={s["task"]} action={formAction}>
-      <input type="hidden" name="id" value={state.task.id} />
-      <div className={s.head}>
-        <input
-          type="text"
-          name="title"
-          className={s.input}
-          defaultValue={state.task.title}
-          readOnly={!isEditable}
-          disabled={!isEditable}
-        />
-      </div>
-      <div className={s.body}>
-        <textarea
-          id={"content"}
-          name={"content"}
-          className={[s["content-input"], s.input].join(" ")}
-          defaultValue={state.task.content}
-          onKeyDown={handleKeyDown}
-          readOnly={!isEditable}
-          disabled={!isEditable}
-        />
-        <label className={s.label}>
-          Completed?
+    <>
+      <form className={s["task"]} action={formAction}>
+        <input type="hidden" name="id" value={state.task.id} />
+        <div className={s.head}>
           <input
-            className={[s.input, s["complete-input"]].join(" ")}
-            type="checkbox"
-            id="complete"
-            name="complete"
-            checked={complete}
-            readOnly
-            hidden
+            type="text"
+            name="title"
+            className={s.input}
+            defaultValue={state.task.title}
+            readOnly={!isEditable}
+            disabled={!isEditable}
           />
-          {complete ? (
-            <CheckBoxRoundedIcon
-              onClick={isEditable ? toggleComplete : undefined}
+        </div>
+        <div className={s.body}>
+          <textarea
+            id={"content"}
+            name={"content"}
+            className={[s["content-input"], s.input].join(" ")}
+            defaultValue={state.task.content}
+            onKeyDown={handleKeyDown}
+            readOnly={!isEditable}
+            disabled={!isEditable}
+          />
+          <span>Created: {new Date(state.task.date).toLocaleDateString()}</span>
+          <label className={s.label}>
+            Completed?
+            <input
+              className={[s.input, s["complete-input"]].join(" ")}
+              type="checkbox"
+              id="complete"
+              name="complete"
+              checked={complete}
+              readOnly
+              hidden
             />
+            {complete ? (
+              <CheckBoxRoundedIcon
+                onClick={isEditable ? toggleComplete : undefined}
+              />
+            ) : (
+              <CheckBoxOutlineBlankRoundedIcon
+                onClick={isEditable ? toggleComplete : undefined}
+              />
+            )}
+          </label>
+        </div>
+        <div className={s.foot}>
+          {isEditable ? (
+            <Button mode="tertiary" onClick={toggleEdit}>
+              <SaveIcon />
+            </Button>
           ) : (
-            <CheckBoxOutlineBlankRoundedIcon
-              onClick={isEditable ? toggleComplete : undefined}
-            />
+            <Button mode="tertiary" onClick={toggleEdit}>
+              <EditIcon />
+            </Button>
           )}
-        </label>
-      </div>
-      <div className={s.foot}>
-        <>{/* {state?.errors)} */}</>
-        {isEditable ? (
-          <Button mode="tertiary" onClick={toggleEdit}>
-            <SaveIcon />
+          <Button
+            mode="tertiary"
+            className={s.deleteBtn}
+            onClick={() => onDelete(state.task.id)}
+          >
+            <DeleteRoundedIcon />
           </Button>
-        ) : (
-          <Button mode="tertiary" onClick={toggleEdit}>
-            <EditIcon />
-          </Button>
-        )}
-        <Button mode="tertiary" onClick={() => onDelete(state.task.id)}>
-          <DeleteRoundedIcon />
-        </Button>
-      </div>
-    </form>
+        </div>
+      </form>
+    </>
   );
 };
 

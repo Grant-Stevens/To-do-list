@@ -25,7 +25,6 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  console.log("HERE");
   const id = Number.parseInt((await params).id);
   try {
     const req = await request.json();

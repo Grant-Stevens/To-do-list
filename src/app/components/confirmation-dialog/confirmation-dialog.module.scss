@@ -1,0 +1,11 @@
+@use "/src/app/variables.scss" as *;
+
+.dangerous {
+  background: $color-red-500;
+  border-color: $color-red-500;
+
+  &:hover {
+    background: $color-red-400;
+    border-color: $color-red-400;
+  }
+}

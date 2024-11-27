@@ -104,8 +104,6 @@ export const TaskProvider = ({ ...props }) => {
 
   const value = { isLoading, tasks, addTask, updateTask, deleteTask };
 
-  // console.log("tasks:", tasks);
-
   return <taskContext.Provider value={value}>{children}</taskContext.Provider>;
 };
 

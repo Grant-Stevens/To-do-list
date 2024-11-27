@@ -45,7 +45,10 @@ export const AuthProvider = ({ ...props }) => {
 
   const getSession = useCallback(async () => {
     setLoading(true);
-    if (session) return;
+    if (session) {
+      setLoading(false);
+      return;
+    }
     let result;
     try {
       result = await authorise();
@@ -62,8 +65,6 @@ export const AuthProvider = ({ ...props }) => {
   }, []);
 
   const value = { isLoading, session, signIn, signOut };
-
-  // console.log("session:", session);
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
 };

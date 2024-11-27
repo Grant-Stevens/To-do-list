@@ -27,7 +27,9 @@ const Profile = () => {
           <SignOut />
         </div>
       ) : (
-        <Button onClick={() => setShowSignIn(true)}>Sign in</Button>
+        <Button mode={"secondary"} onClick={() => setShowSignIn(true)}>
+          Sign in
+        </Button>
       )}
       {showSignIn && <SignIn />}
     </>
