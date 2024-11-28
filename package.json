@@ -13,7 +13,7 @@
     "db-migrate": "npx prisma migrate dev --name init",
     "db-open": "npx prisma studio",
     "db-reset": "npx prisma migrate reset",
-    "postinstall": "npx generate prisma"
+    "postinstall": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
