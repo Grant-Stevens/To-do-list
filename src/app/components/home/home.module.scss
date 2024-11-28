@@ -1,0 +1,70 @@
+@use "/src/app/variables.scss" as *;
+
+.page {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  justify-items: center;
+  min-height: calc(100svh - 85px);
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  background-color: $color-gray-800;
+  border: 1px solid $color-gray-400;
+  border-bottom-width: 0;
+  border-right-width: 0;
+  border-radius: 16px 0 0 0;
+  padding: 32px;
+}
+
+.sidebar {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  width: 82px;
+  transition: width 0.3s ease-in-out;
+
+  & .toggle {
+    width: 50px;
+    height: 50px;
+    align-self: flex-end;
+    position: fixed;
+    bottom: 64px;
+    left: calc(82px - 25px);
+    border-radius: 50%;
+    border: 1px solid $color-gray-400;
+    opacity: 1;
+  }
+
+  &.extended {
+    width: 250px;
+
+    & .addBtn {
+      height: auto;
+      width: 100%;
+    }
+
+    & .toggle {
+      left: calc(250px - 25px);
+    }
+  }
+
+  & .addBtn {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    gap: 8px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+}
+
+@media (max-width: 600px) {
+}
