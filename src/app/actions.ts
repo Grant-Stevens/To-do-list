@@ -28,11 +28,8 @@ export async function updateTask(task: ITask) {
         task: task,
       }),
     });
-    if (!res.ok) {
-      return {
-        errors: "there was an issue updating task",
-      };
-    } else return await res.json();
+    if (res.ok) return await res.json();
+    throw new Error(res.statusText);
   } catch (error) {
     console.error("ERROR:", error);
   }
@@ -43,11 +40,8 @@ export async function deleteTask(id: number) {
     const res = await fetch(`${BASE_URL}/api/tasks/${id}`, {
       method: "DELETE",
     });
-    if (res.ok) {
-      return await res.json();
-    } else {
-      throw new Error(res.statusText);
-    }
+    if (res.ok) return await res.json();
+    throw new Error(res.statusText);
   } catch (error) {
     console.error("ERROR:", error);
   }
@@ -67,11 +61,8 @@ export async function addTask(t?: ITask, u?: IUser) {
       method: "POST",
       body: JSON.stringify({ task: t }),
     });
-    if (res.ok) {
-      return await res.json();
-    } else {
-      throw new Error(res.statusText);
-    }
+    if (res.ok) return await res.json();
+    throw new Error(res.statusText);
   } catch (error) {
     console.error("ERROR:", error);
   }
