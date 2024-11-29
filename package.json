@@ -21,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@next/eslint-plugin-next": "^15.0.3",
     "@types/node": "^22.9.0",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -29,8 +30,7 @@
     "prisma": "^6.0.0",
     "ts-loader": "^9.5.1",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2",
-    "webpack-cli": "^5.1.4"
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -44,7 +44,6 @@
     "react-dom": "^18.3.1",
     "sass": "^1.81.0",
     "sass-loader": "^16.0.3",
-    "webpack": "^5.96.1",
     "zod": "^3.23.8"
   }
 }
